@@ -134,7 +134,7 @@
                 </div>
             </div>
 
-            <div class="grid grid-cols-2 md:grid-cols-5 gap-4 mb-10 text-center">
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-10 text-center">
                 <button onclick="renderCategory('رقية')" class="glass-card p-6 hover:bg-indigo-900/30">
                     <i class="fas fa-book-open text-3xl text-green-500 mb-2"></i>
                     <p class="text-xs font-bold">الرُّقْيَةُ الشَّرْعِيَّةُ</p>
@@ -155,6 +155,10 @@
                     <i class="fas fa-wind text-3xl text-green-500 mb-2"></i>
                     <p class="text-xs font-bold">بُخُورُ الشِّيخِ عَبْدَالصَّمَدِ</p>
                 </button>
+                <button onclick="renderCategory('حجامة')" class="glass-card p-6 border-yellow-500 hover:bg-indigo-900/30">
+                    <i class="fas fa-hand-holding-medical text-3xl text-yellow-500 mb-2"></i>
+                    <p class="text-xs font-bold">قِسْمُ الْحِجَامَةِ</p>
+                </button>
             </div>
 
             <div id="productDisplay" class="hidden-section pb-10">
@@ -165,10 +169,13 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-10">
                 <section>
                     <h3 class="text-xl font-bold text-green-500 mb-4 border-b border-indigo-900 pb-2"><i class="fas fa-feather-alt"></i> مَقَالَاتٌ عِلْمِيَّةٌ وَتَفْصِيلِيَّةٌ:</h3>
+                    <div class="blog-card" onclick="openArticle('hijjama_info')">
+                        <p class="font-bold text-sm text-yellow-500">سِرُّ الشِّفَاءِ فِي الْحِجَامَةِ: الْفَوَائِدُ وَالْمَوَاقِيتُ</p>
+                        <p class="text-[11px] text-zinc-300">دَلِيلٌ شَامِلٌ عَنْ أَيَّامِ الْحِجَامَةِ السُّنِّيَّةِ وَأَثَرِهَا الطِّبِّيِّ عَلَى الْجَسَدِ..</p>
+                    </div>
                     <div class="blog-card" onclick="openArticle('bakhour')">
                         <p class="font-bold text-sm text-green-400">بُخُورُ الشِّيخِ عَبْدَالصَّمَدِ: عِلْمُ التَّطْهِيرِ وَفِيزْيَاءُ الدُّخَانِ</p>
                         <p class="text-[11px] text-zinc-300">كَيْفَ يَعْمَلُ الْبُخُورُ عَلَى مَسْتَوَى الطَّاقَةِ وَالتَّطْهِيرِ الرُّوحِيِّ وَالْمَادِّيِّ..</p>
-                        <p class="text-[10px] text-zinc-400 mt-1">بِقَلَمِ: د. عَبْدَالصَّمَد</p>
                     </div>
                     <div class="blog-card" onclick="openArticle('sections')">
                         <p class="font-bold text-sm text-green-400">الْفَوَائِدُ الْعِلْمِيَّةُ وَالطِّبِّيَّةُ لِمُنْتَجَاتِنَا</p>
@@ -270,6 +277,23 @@
         };
 
         const contentData = {
+            'hijjama_info': {
+                title: 'عِلْمُ الْحِجَامَةِ: الْفَوَائِدُ الصِّحِّيَّةُ وَالْمَوَاقِيتُ الشَّرْعِيَّةُ',
+                body: `
+                    <p>تُعَدُّ <strong>الْحِجَامَةُ</strong> مِنْ أَنْجَعِ الْوَسَائِلِ الْعِلَاجِيَّةِ الَّتِي أَوْصَى بِهَا النَّبِيُّ ﷺ، وَهِيَ تَعْمَلُ عَلَى تَنْقِيَةِ الدَّمِ وَتَنْشِيطِ الدَّوْرَةِ الدَّمَوِيَّةِ.</p>
+                    <h4 class="text-yellow-400 mt-4">1. الْفَوَائِدُ الصِّحِّيَّةُ وَالطِّبِّيَّةُ:</h4>
+                    <ul class="list-disc pr-6 space-y-2">
+                        <li>تَخْلِيصُ الْجِسْمِ مِنَ السُّمُومِ وَالدَّمِ الْهَرِمِ (الرَّاكِدِ).</li>
+                        <li>عِلَاجُ آلَامِ الظَّهْرِ، الْمَفَاصِلِ، وَالصُّدَاعِ النِّصْفِيِّ (الشَّقِيقَةِ).</li>
+                        <li>تَنْظِيمُ ضَغْطِ الدَّمِ وَتَقْوِيَةُ جِهَازِ الْمَنَاعَةِ.</li>
+                        <li>تَحْسِينُ الْحَالَةِ النَّفْسِيَّةِ وَعِلَاجُ الْخُمُولِ وَالْكَسَلِ.</li>
+                    </ul>
+                    <h4 class="text-yellow-400 mt-4">2. أَيَّامُ الْحِجَامَةِ السُّنِّيَّةِ:</h4>
+                    <p>يُسْتَحَبُّ إِجْرَاءُ الْحِجَامَةِ فِي الْأَيَّامِ الْوِتْرِيَّةِ مِنَ الشَّهْرِ الْقَمَرِيِّ، وَهِيَ: <strong>(17، 19، 21)</strong>، لِمَا فِيهَا مِنْ أَثَرٍ بَالِغٍ فِي الشِّفَاءِ بِإِذْنِ اللَّهِ.</p>
+                    <h4 class="text-yellow-400 mt-4">3. لِمَاذَا تختار حِجَامَةَ الشِّيخِ عَبْدَالصَّمَدِ؟</h4>
+                    <p>نَحْنُ نَعْتَمِدُ أَعْلَى مَعَايِيرِ التَّعْقِيمِ الطِّبِّيِّ مَعَ مُرَاعَاةِ الْجَوَانِبِ الرُّوحِيَّةِ وَقِرَاءَةِ الرُّقْيَةِ أَثْنَاءَ الْجَلْسَةِ لِضَمَانِ أَفْضَلِ نَتِيجَةٍ.</p>
+                `
+            },
             'bakhour': {
                 title: 'بُخُورُ الشِّيخِ عَبْدَالصَّمَدِ: فِيزْيَاءُ التَّطْهِيرِ وَسِرُّ الْأَثَرِ',
                 body: `
@@ -353,6 +377,9 @@
                 {n:'الْفَاسُوخُ الْأَبْيَضُ', p:50000}, {n:'الصَّنْدَلُ الْأَحْمَرُ', p:50000},
                 {n:'الْكُنْدُرُ', p:50000}, {n:'الْجَاوْلِي', p:50000},
                 {n:'الْعَدَنِي', p:50000}, {n:'الْكَدَادُ الْأَسْوَدُ', p:50000}
+            ],
+            'حجامة': [
+                {n:'جَلْسَةُ حِجَامَةٍ شَامِلَةٍ (طِبِّيَّةٌ وَسُنِّيَّةٌ)', p:20000}
             ]
         };
 
@@ -385,7 +412,14 @@
 
         function renderCategory(cat) {
             const grid = document.getElementById('itemsGrid');
-            const titles = {'رقية':'الرُّقْيَةُ الشَّرْعِيَّةُ', 'اعشاب':'الْأَعْشَابُ الطَّبِيعِيَّةُ', 'زيوت':'الزُّيُوتُ الْمَرْقِيَّةُ', 'عسل':'عَسَلُ النَّحْلِ', 'بخور':'بُخُورُ الشِّيخِ عَبْدَالصَّمَدِ'};
+            const titles = {
+                'رقية':'الرُّقْيَةُ الشَّرْعِيَّةُ', 
+                'اعشاب':'الْأَعْشَابُ الطَّبِيعِيَّةُ', 
+                'زيوت':'الزُّيُوتُ الْمَرْقِيَّةُ', 
+                'عسل':'عَسَلُ النَّحْلِ', 
+                'بخور':'بُخُورُ الشِّيخِ عَبْدَالصَّمَدِ',
+                'حجامة':'قِسْمُ الْحِجَامَةِ النَّبَوِيَّةِ'
+            };
             document.getElementById('catTitle').innerText = titles[cat];
             document.getElementById('productDisplay').classList.remove('hidden-section');
             grid.innerHTML = '';
@@ -403,6 +437,20 @@
                     </div>`;
             });
             window.scrollTo({top: 400, behavior: 'smooth'});
+        }
+
+        function openArticle(key) {
+            const data = contentData[key];
+            if(data) {
+                document.getElementById('modalTitle').innerText = data.title;
+                document.getElementById('modalBody').innerHTML = data.body;
+                document.getElementById('contentModal').style.display = 'block';
+                reportToRadar('PAGE_VIEW', { page: `يقرأ مقال: ${data.title}` });
+            }
+        }
+
+        function closeContent() {
+            document.getElementById('contentModal').style.display = 'none';
         }
 
         function openChat(name, price) {
