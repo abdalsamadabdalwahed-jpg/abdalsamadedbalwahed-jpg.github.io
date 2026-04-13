@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة تحكم الإدارة </title>
+    <style>
+        :root { --primary: #0d47a1; --accent: #ffc107; --bg: #f4f4f4; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: var(--bg); margin: 0; padding: 20px; }
+        .admin-container { max-width: 1200px; margin: auto; display: grid; grid-template-columns: 2fr 1fr; gap: 20px; }
+        .card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        h2 { color: var(--primary); border-bottom: 2px solid var(--accent); padding-bottom: 10px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        th, td { padding: 12px; border: 1px solid #ddd; text-align: right; }
+        th { background: var(--primary); color: white; }
+        input[type="number"] { width: 100px; padding: 5px; border: 1px solid #ccc; border-radius: 4px; }
+        .btn-save { background: #2e7d32; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; width: 100%; font-size: 16px; margin-top: 20px; }
+        .btn-save:hover { background: #1b5e20; }
+        .radar-list { list-style: none; padding: 0; }
+        .radar-item { background: #e3f2fd; margin-bottom: 10px; padding: 10px; border-right: 5px solid var(--primary); border-radius: 4px; font-size: 14px; }
+        .badge { background: var(--accent); color: #000; padding: 2px 6px; border-radius: 4px; font-size: 12px; }
+        .back-link { display: inline-block; margin-bottom: 20px; color: var(--primary); text-decoration: none; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <a href="index.html" class="back-link">← العودة لصفحة الزوار</a>
+    
+    <div class="admin-container">
+        <div class="card">
+            <h2>إدارة المنتجات والأسعار</h2>
+            <div id="editor-zone">
+                </div>
+            <button class="btn-save" onclick="saveAllChanges()">حفظ التعديلات ونشرها للموقع</button>
+        </div>
+
+        <div class="card">
+            <h2>رادار الزوار (نشط الآن)</h2>
+            <div id="radar-screen" class="radar-list">
+                <p style="color: #666;">في انتظار حركة الزوار...</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // تحميل البيانات من الذاكرة أو استخدام الافتراضية
+        let menu = JSON.parse(localStorage.getItem('siteMenu')) || {};
+
+        function initEditor() {
+            const zone = document.getElementById('editor-zone');
+            zone.innerHTML = '';
+
+            for (let category in menu) {
+                let html = `<h3>قسم ${category}</h3><table><tr><th>المنتج</th><th>السعر (ج.س)</th></tr>`;
+                menu[category].forEach((item, index) => {
+                    html += `
+                        <tr>
+                            <td>${item.n}</td>
+                            <td><input type="number" value="${item.p}" onchange="updatePrice('${category}', ${index}, this.value)"></td>
+                        </tr>`;
+                });
+                html += `</table>`;
+                zone.innerHTML += html;
+            }
+        }
+
+        function updatePrice(cat, idx, val) {
+            menu[cat][idx].p = parseInt(val);
+        }
+
+        function saveAllChanges() {
+            localStorage.setItem('siteMenu', JSON.stringify(menu));
+            alert('تم حفظ الأسعار الجديدة بنجاح! سيراها الزوار عند دخولهم للموقع.');
+        }
+
+        // نظام الرادار لمراقبة الزوار
+        function updateRadar() {
+            const radarScreen = document.getElementById('radar-screen');
+            const activities = JSON.parse(localStorage.getItem('user_activities')) || [];
+            
+            if (activities.length === 0) return;
+
+            radarScreen.innerHTML = '';
+            // عرض آخر 10 نشاطات فقط
+            activities.slice(-10).reverse().forEach(act => {
+                const item = document.createElement('div');
+                item.className = 'radar-item';
+                item.innerHTML = `
+                    <strong>${act.user}</strong> <span class="badge">${act.type}</span><br>
+                    <small>${act.detail || ''}</small> - <span style="font-size:10px">${act.time}</span>
+                `;
+                radarScreen.appendChild(item);
+            });
+        }
+
+        // تشغيل المحرر وتحديث الرادار كل 3 ثوانٍ
+        initEditor();
+        setInterval(updateRadar, 3000);
+    </script>
+</body>
+</html>
